@@ -3,6 +3,12 @@ export interface ApiResponse<T = unknown> {
   data?: T;
   error?: string;
 }
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  passwordHash?: string; // Should not be sent to client
+}
 export interface Deal {
   id: string;
   title: string;

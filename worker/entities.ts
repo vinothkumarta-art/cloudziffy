@@ -1,5 +1,5 @@
 import { IndexedEntity } from "./core-utils";
-import type { Deal, Category, Brand } from "@shared/types";
+import type { Deal, Category, Brand, User } from "@shared/types";
 // Mock data for seeding, adapted from frontend mock data
 const MOCK_CATEGORIES: Category[] = [
   { id: 'electronics', name: 'Electronics' },
@@ -118,6 +118,13 @@ const MOCK_DEALS: Deal[] = [
     dealUrl: '#',
   },
 ];
+// USER ENTITY
+export class UserEntity extends IndexedEntity<User> {
+  static readonly entityName = "user";
+  static readonly indexName = "users";
+  static readonly initialState: User = { id: "", name: "", email: "", passwordHash: "" };
+  static keyOf(state: User): string { return state.email; }
+}
 // CATEGORY ENTITY
 export class CategoryEntity extends IndexedEntity<Category> {
   static readonly entityName = "category";

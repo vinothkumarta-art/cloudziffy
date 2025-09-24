@@ -1,15 +1,19 @@
 import { Flame, Search, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useFilterStore } from '@/lib/store';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { AuthDialog } from '@/components/auth/AuthDialog';
+import { UserNav } from '@/components/auth/UserNav';
+import { Toaster } from '@/components/ui/sonner';
 export function Header({ onMenuClick }: { onMenuClick: () => void }) {
   const searchQuery = useFilterStore((state) => state.searchQuery);
   const setSearchQuery = useFilterStore((state) => state.setSearchQuery);
+  const user = useFilterStore((state) => state.user);
   const isMobile = useIsMobile();
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-sm">
+      <Toaster richColors closeButton />
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6">
           <a href="/" className="flex items-center gap-2">
@@ -49,9 +53,7 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
               <span className="sr-only">Open Filters</span>
             </Button>
           )}
-          <Button className="hidden sm:inline-flex rounded-full bg-blue-800 hover:bg-blue-900 dark:bg-blue-700 dark:hover:bg-blue-800">
-            Sign Up
-          </Button>
+          {user ? <UserNav /> : <AuthDialog />}
         </div>
       </div>
     </header>
